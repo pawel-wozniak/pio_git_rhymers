@@ -6,7 +6,7 @@ public class DefaultCountingOutRhymer {
 	private static final int DEFAULT_VAULE = -1;
 	private static final int MAX_SIZE = 12;
 	private static final int FULL = MAX_SIZE-1;
-	
+    // TODO: Change array to IntLinkedList
     private final int[] numbers = new int[MAX_SIZE];
 
     private int total = EMPTY_INDEX;

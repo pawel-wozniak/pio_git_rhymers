@@ -18,7 +18,7 @@ public class IntLinkedList {
     public boolean isEmpty() {
         return last == null;
     }
-
+    // TODO: Check if below statement is always true, (isFull = false)
     public boolean isFull() {
         return false;
     }
