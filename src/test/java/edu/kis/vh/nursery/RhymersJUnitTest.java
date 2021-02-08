@@ -3,6 +3,10 @@ package edu.kis.vh.nursery;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+
+import static org.junit.Assert.fail;
+
 public class RhymersJUnitTest {
 
 	@Test
@@ -30,7 +34,15 @@ public class RhymersJUnitTest {
 	@Test
 	public void testIsFull() {
 		DefaultCountingOutRhymer rhymer = new DefaultCountingOutRhymer();
-		final int STACK_CAPACITY = 12;
+		int STACK_CAPACITY = 0;
+		try {
+			Field maxSize = rhymer.getClass().getDeclaredField("MAX_SIZE");
+			maxSize.setAccessible(true);
+			STACK_CAPACITY = maxSize.getInt(rhymer);
+		} catch (Exception e) {
+			fail("testIsFull() - can't access MAX_SIZE field using reflection");
+		}
+
 		for (int i = 0; i < STACK_CAPACITY; i++) {
 			boolean result = rhymer.isFull();
 			Assert.assertEquals(false, result);
