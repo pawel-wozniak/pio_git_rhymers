@@ -80,7 +80,14 @@ public class RhymersJUnitTest {
 	@Test
 	public void testCountOut() {
 		DefaultCountingOutRhymer rhymer = new DefaultCountingOutRhymer();
-		final int EMPTY_STACK_VALUE = -1;
+		int EMPTY_STACK_VALUE = 0;
+		try {
+			Field maxSize = rhymer.getClass().getDeclaredField("EMPTY_INDEX");
+			maxSize.setAccessible(true);
+			EMPTY_STACK_VALUE = maxSize.getInt(rhymer);
+		} catch (Exception e) {
+			fail("testPeekaboo() - can't access EMPTY_INDEX field using reflection");
+		}
 
 		int result = rhymer.countOut();
 		Assert.assertEquals(EMPTY_STACK_VALUE, result);
