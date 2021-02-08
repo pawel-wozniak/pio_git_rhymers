@@ -2,9 +2,7 @@ package edu.kis.vh.nursery;
 
 import org.junit.Assert;
 import org.junit.Test;
-
 import java.lang.reflect.Field;
-
 import static org.junit.Assert.fail;
 
 public class RhymersJUnitTest {
@@ -34,16 +32,16 @@ public class RhymersJUnitTest {
 	@Test
 	public void testIsFull() {
 		DefaultCountingOutRhymer rhymer = new DefaultCountingOutRhymer();
-		int STACK_CAPACITY = 0;
+		int stackCapacity = 0;
 		try {
 			Field maxSize = rhymer.getClass().getDeclaredField("MAX_SIZE");
 			maxSize.setAccessible(true);
-			STACK_CAPACITY = maxSize.getInt(rhymer);
+			stackCapacity = maxSize.getInt(rhymer);
 		} catch (Exception e) {
 			fail("testIsFull() - can't access MAX_SIZE field using reflection");
 		}
 
-		for (int i = 0; i < STACK_CAPACITY; i++) {
+		for (int i = 0; i < stackCapacity; i++) {
 			boolean result = rhymer.isFull();
 			Assert.assertEquals(false, result);
 			rhymer.countIn(888);
@@ -56,17 +54,17 @@ public class RhymersJUnitTest {
 	@Test
 	public void testPeekaboo() {
 		DefaultCountingOutRhymer rhymer = new DefaultCountingOutRhymer();
-		int EMPTY_STACK_VALUE = 0;
+		int emptyStackValue = 0;
 		try {
 			Field maxSize = rhymer.getClass().getDeclaredField("EMPTY_INDEX");
 			maxSize.setAccessible(true);
-			EMPTY_STACK_VALUE = maxSize.getInt(rhymer);
+			emptyStackValue = maxSize.getInt(rhymer);
 		} catch (Exception e) {
 			fail("testPeekaboo() - can't access EMPTY_INDEX field using reflection");
 		}
 
 		int result = rhymer.peekaboo();
-		Assert.assertEquals(EMPTY_STACK_VALUE, result);
+		Assert.assertEquals(emptyStackValue, result);
 
 		int testValue = 4;
 		rhymer.countIn(testValue);
@@ -80,17 +78,17 @@ public class RhymersJUnitTest {
 	@Test
 	public void testCountOut() {
 		DefaultCountingOutRhymer rhymer = new DefaultCountingOutRhymer();
-		int EMPTY_STACK_VALUE = 0;
+		int emptyStackValue = 0;
 		try {
 			Field maxSize = rhymer.getClass().getDeclaredField("EMPTY_INDEX");
 			maxSize.setAccessible(true);
-			EMPTY_STACK_VALUE = maxSize.getInt(rhymer);
+			emptyStackValue = maxSize.getInt(rhymer);
 		} catch (Exception e) {
 			fail("testPeekaboo() - can't access EMPTY_INDEX field using reflection");
 		}
 
 		int result = rhymer.countOut();
-		Assert.assertEquals(EMPTY_STACK_VALUE, result);
+		Assert.assertEquals(emptyStackValue, result);
 
 		int testValue = 4;
 		rhymer.countIn(testValue);
@@ -98,7 +96,7 @@ public class RhymersJUnitTest {
 		result = rhymer.countOut();
 		Assert.assertEquals(testValue, result);
 		result = rhymer.countOut();
-		Assert.assertEquals(EMPTY_STACK_VALUE, result);
+		Assert.assertEquals(emptyStackValue, result);
 	}
 
 }
